@@ -870,24 +870,25 @@ int dummy;
         self.add_build(elem)
 
     def should_use_dyndeps_for_target(self, target: 'build.BuildTarget') -> bool:
-        if mesonlib.version_compare(self.ninja_version, '<1.10.0'):
-            return False
-        if 'fortran' in target.compilers:
-            return True
-        if 'cpp' not in target.compilers:
-            return False
-        # Currently only the preview version of Visual Studio is supported.
-        cpp = target.compilers['cpp']
-        if cpp.get_id() != 'msvc':
-            return False
-        cppversion = self.environment.coredata.options[OptionKey('std', machine=target.for_machine, lang='cpp')].value
-        if  cppversion not in ('latest', 'c++latest', 'vc++latest'):
-            return False
-        if not mesonlib.current_vs_supports_modules():
-            return False
-        if mesonlib.version_compare(cpp.version, '<19.28.28617'):
-            return False
-        return True
+        # if mesonlib.version_compare(self.ninja_version, '<1.10.0'):
+        #     return False
+        # if 'fortran' in target.compilers:
+        #     return True
+        # if 'cpp' not in target.compilers:
+        #     return False
+        # # Currently only the preview version of Visual Studio is supported.
+        # cpp = target.compilers['cpp']
+        # if cpp.get_id() != 'msvc':
+        #     return False
+        # cppversion = self.environment.coredata.options[OptionKey('std', machine=target.for_machine, lang='cpp')].value
+        # if  cppversion not in ('latest', 'c++latest', 'vc++latest'):
+        #     return False
+        # if not mesonlib.current_vs_supports_modules():
+        #     return False
+        # if mesonlib.version_compare(cpp.version, '<19.28.28617'):
+        #     return False
+        # return True
+        return False
 
     def generate_dependency_scan_target(self, target, compiled_sources, source2object):
         if not self.should_use_dyndeps_for_target(target):
