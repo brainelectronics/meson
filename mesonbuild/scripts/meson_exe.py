@@ -88,7 +88,8 @@ def run_exe(exe: ExecutableSerialisation, extra_env: T.Optional[dict] = None) ->
             with open(exe.capture, 'wb') as output:
                 output.write(stdout)
     else:
-        print(stdout.decode())
+        if stdout:
+            print(stdout.decode())
 
     return 0
 
